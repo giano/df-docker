@@ -6,8 +6,7 @@ ENV DEBIAN_FRONTEND noninteractive
 
 RUN apt-get update && \
     apt-get remove --purge node && \
-    apt-get install -y git-core curl apache2 php5 php5-common php5-dev php5-cli php5-curl php5-json php5-mcrypt php5-mysql php5-pgsql php5-sqlite php-pear nodejs && \
-    pecl install mongo && \
+    apt-get install -y git-core curl apache2 php5 php5-common php5-cli php5-curl php5-json php5-mcrypt php5-mysql php5-pgsql php5-sqlite php-mongo nodejs && \
     rm -rf /var/lib/apt/lists/*
 
 
@@ -15,9 +14,6 @@ RUN apt-get update && \
 RUN curl -sS https://getcomposer.org/installer | php && \
     mv composer.phar /usr/local/bin/composer && \
     chmod +x /usr/local/bin/composer
-
-RUN touch /etc/php5/conf.d/mongo.ini && \
-    echo extension=mongo.so >> /etc/php5/conf.d/mongo.ini
 
 RUN echo "ServerName localhost" | tee /etc/apache2/conf-available/servername.conf && \
     a2enconf servername
