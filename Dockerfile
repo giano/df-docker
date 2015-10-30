@@ -5,8 +5,11 @@ MAINTAINER Felix Glaeske<felix@psy-coding.com>
 ENV DEBIAN_FRONTEND noninteractive
 
 RUN apt-get update && \
-    apt-get install -y git-core curl apache2 php5 php5-common php5-cli php5-curl php5-json php5-mcrypt php5-mysql php5-pgsql php5-sqlite && \
+    apt-get remove --purge node && \
+    apt-get install -y git-core curl apache2 php5 php5-common php5-dev php5-cli php5-curl php5-json php5-mcrypt php5-mysql php5-pgsql php5-sqlite php-pear nodejs && \
     rm -rf /var/lib/apt/lists/*
+
+RUN pecl install mongo
 
 # install composer
 RUN curl -sS https://getcomposer.org/installer | php && \
